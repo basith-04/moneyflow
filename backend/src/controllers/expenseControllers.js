@@ -1,0 +1,90 @@
+import pool from '../db/db.js'
+async function getExpenses(req, res) {
+    let query = 'select * from expenses where 1=1'
+    let values = []
+    try {
+            if (req.query.min) {
+                query += ' AND amount >= ?';
+                values.push(req.query.min);
+            }
+
+            if (req.query.max) {
+                query += ' AND amount <= ?';
+                values.push(req.query.max);
+            }
+            if (req.query.category_id) {
+                query += ' AND category_id = ?';
+                values.push(req.query.category_id);
+            }
+            if (req.query.from) {
+                query += ' AND date >= ?';
+                values.push(req.query.from);
+            }
+
+            if (req.query.to) {
+                query += ' AND date <= ?';
+                values.push(req.query.to);
+            }
+
+        
+        const [rows] = await pool.query(query,values)
+       return res.status(200).json(rows)
+
+    } catch (err) {
+        console.error('DB ERROR', err)
+        return res.status(500).json({ error: 'Internal server error' })
+    }
+}
+async function addExpense(req, res) {
+    console.log(req.body)
+    const { title, amount, date, category_id, group_id, note } = req.body
+    if (!title || !amount || !date || !category_id) {
+        return res.status(400).json({ error: "missing required fields" })
+    }
+    try {
+        const [result] = await pool.query(
+            `INSERT INTO expenses 
+       (title, amount, date, category_id, group_id, note)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+            [title, amount, date, category_id, group_id || null, note || null]
+        );
+        res.status(201).json({ message: "Expense added", expense_id: result.insertId })
+
+    } catch (err) {
+        console.error('DB ERROR', err)
+        return res.status(500).json({ error: 'Internal server error' })
+    }
+
+}
+async function removeExpense(req,res){
+
+    const {expense_id} = req.params
+    console.log(req.params)
+    if (!expense_id) {
+        return res.status(400).json({ error: "missing required fields" })
+    }
+    try {
+        const [result] = await pool.query(
+            `DELETE FROM expenses WHERE expense_id = ?`,
+            [expense_id]
+        );
+        if(result.affectedRows>0){
+            return res.status(200).json({ message: "Expense deleted"})
+
+        }
+        else{
+            return res.status(404).json({error:"not found"})
+        }
+
+    } catch (err) {
+        console.error('DB ERROR', err)
+        return res.status(500).json({ error: 'Internal server error' })
+    }
+
+
+}
+async function updateExpense(req,res){
+    console.log("update")
+    
+}
+export { getExpenses, addExpense,removeExpense,updateExpense }
