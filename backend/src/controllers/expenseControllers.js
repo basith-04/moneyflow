@@ -3,32 +3,32 @@ async function getExpenses(req, res) {
     let query = 'select * from expenses where 1=1'
     let values = []
     try {
-            if (req.query.min) {
-                query += ' AND amount >= ?';
-                values.push(req.query.min);
-            }
+        if (req.query.min) {
+            query += ' AND amount >= ?';
+            values.push(req.query.min);
+        }
 
-            if (req.query.max) {
-                query += ' AND amount <= ?';
-                values.push(req.query.max);
-            }
-            if (req.query.category_id) {
-                query += ' AND category_id = ?';
-                values.push(req.query.category_id);
-            }
-            if (req.query.from) {
-                query += ' AND date >= ?';
-                values.push(req.query.from);
-            }
+        if (req.query.max) {
+            query += ' AND amount <= ?';
+            values.push(req.query.max);
+        }
+        if (req.query.category_id) {
+            query += ' AND category_id = ?';
+            values.push(req.query.category_id);
+        }
+        if (req.query.from) {
+            query += ' AND date >= ?';
+            values.push(req.query.from);
+        }
 
-            if (req.query.to) {
-                query += ' AND date <= ?';
-                values.push(req.query.to);
-            }
+        if (req.query.to) {
+            query += ' AND date <= ?';
+            values.push(req.query.to);
+        }
 
-        
-        const [rows] = await pool.query(query,values)
-       return res.status(200).json(rows)
+
+        const [rows] = await pool.query(query, values)
+        return res.status(200).json(rows)
 
     } catch (err) {
         console.error('DB ERROR', err)
@@ -56,9 +56,9 @@ async function addExpense(req, res) {
     }
 
 }
-async function removeExpense(req,res){
+async function removeExpense(req, res) {
 
-    const {expense_id} = req.params
+    const { expense_id } = req.params
     console.log(req.params)
     if (!expense_id) {
         return res.status(400).json({ error: "missing required fields" })
@@ -68,12 +68,12 @@ async function removeExpense(req,res){
             `DELETE FROM expenses WHERE expense_id = ?`,
             [expense_id]
         );
-        if(result.affectedRows>0){
-            return res.status(200).json({ message: "Expense deleted"})
+        if (result.affectedRows > 0) {
+            return res.status(200).json({ message: "Expense deleted" })
 
         }
-        else{
-            return res.status(404).json({error:"not found"})
+        else {
+            return res.status(404).json({ error: "not found" })
         }
 
     } catch (err) {
@@ -83,8 +83,43 @@ async function removeExpense(req,res){
 
 
 }
-async function updateExpense(req,res){
-    console.log("update")
-    
+async function updateExpense(req, res) {
+
+    const { expense_id } = req.params
+    const allowed_fields = ['title', 'amount', 'date', 'category_id', 'group_id', 'note'];
+    let query = 'UPDATE expenses SET '
+    let values = []
+    if (!req.body) {
+        return res.status(400).json({ error: "required fields are empty" })
+    }
+    Object.keys(req.body).forEach((key) => {
+        if (allowed_fields.includes(key)) {
+            if (values.length > 0) {
+                query += ','
+            }
+            query += `${key}=? `
+            values.push(req.body[key])
+
+        }
+    })
+    if(values.length == 0) return res.status(400).json({error:"invalid fields"})
+    query += ' WHERE expense_id = ?';
+    values.push(expense_id);
+
+    try {
+        const [result] = await pool.query(query, values);
+        if (result.affectedRows > 0) {
+            return res.status(200).json({ message: "Expense updated" })
+
+        }
+        else {
+            return res.status(404).json({ error: "not found" })
+        }
+
+    } catch (err) {
+        console.error('DB ERROR', err)
+        return res.status(500).json({ error: 'Internal server error' })
+    }
+
 }
-export { getExpenses, addExpense,removeExpense,updateExpense }
+export { getExpenses, addExpense, removeExpense, updateExpense }
