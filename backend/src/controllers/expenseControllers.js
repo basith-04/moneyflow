@@ -1,6 +1,6 @@
 import pool from '../db/db.js'
 async function getExpenses(req, res) {
-    let query = 'select * from expenses where 1=1'
+    let query = ' select expense_id,title,amount ,date,name,note from expenses inner join categories on category_id=id where 1=1'
     let values = []
     try {
         if (req.query.min) {
@@ -26,7 +26,7 @@ async function getExpenses(req, res) {
             values.push(req.query.to);
         }
 
-
+        query +=' ORDER BY expense_id DESC'
         const [rows] = await pool.query(query, values)
         return res.status(200).json(rows)
 
