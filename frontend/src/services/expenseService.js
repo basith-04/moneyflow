@@ -15,6 +15,7 @@ async function getExpenses(filters) {
     console.error(err);
   }
 }
+
 async function addExpense(expense) {
   try {
     const res = await fetch(`${apiUrl}/expenses`, {
@@ -69,6 +70,7 @@ async function updateExpense(id, data) {
 
   }
 }
+export { getExpenses, addExpense, removeExpense, updateExpense }
 // updateExpense(124,{'title':'meal'})
 // removeExpense(129)
 // addExpense({
