@@ -10,12 +10,13 @@ export default function ExpenseList(props) {
                     <td>date</td>
                     <td>category</td>
                     <td> note</td>
+                    <td>x</td>
 
                 </tr>
             </thead>
             <tbody>
                 {props.expenses.map((element) => {
-                    return <ExpenseItem item={element} />
+                    return <ExpenseItem onDelete={props.onDelete} item={element} />
                 })}
             </tbody>
         </table>

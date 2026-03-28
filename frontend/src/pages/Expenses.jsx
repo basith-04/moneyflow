@@ -16,7 +16,7 @@ export default function Expenses() {
     }
     return <div><h1>Expenses</h1>
         <AddExpense onAdd={fetchData} />
-        <ExpenseList expenses={expenses} />
+        <ExpenseList onDelete={fetchData} expenses={expenses} />
 
     </div>
 }
