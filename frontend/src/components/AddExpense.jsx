@@ -1,6 +1,7 @@
 import { getCategories } from "../services/categoriesService";
 import { addExpense } from "../services/expenseService";
 import {useState,useEffect} from "react"
+import styles from "./AddExpense.module.css";
 export default function AddExpense({ onAdd }) {
     const [title, setTitle] = useState("");
     const [amount, setAmount] = useState("");
@@ -39,9 +40,10 @@ export default function AddExpense({ onAdd }) {
     setNote("");
   }
 
-    return <div>
-        <form onSubmit={handleSubmit}>
-            <h2>Add Expense</h2>
+    return <div className={styles.container}> 
+    <h2 className={styles.form}> Add Expense</h2>
+        <form onSubmit={handleSubmit} >
+            
 
             <input
                 type="text"
