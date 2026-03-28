@@ -1,8 +1,8 @@
 import { getExpenses } from "../services/expenseService"
 import { useState, useEffect } from "react"
-import Categories from "./Categories";
 import ExpenseList from "../components/ExpenseList";
 import AddExpense from "../components/AddExpense";
+
 export default function Expenses() {
     const [expenses, setExpenses] = useState([])
     useEffect(() => {
