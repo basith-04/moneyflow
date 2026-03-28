@@ -1,5 +1,5 @@
 const apiUrl = import.meta.env.VITE_API_URL;
-async function getExpenses(filters) {
+async function getExpenses(filters={}) {
   try {
     const queryString = new URLSearchParams(filters).toString();
     const url = queryString ? `${apiUrl}/expenses?${queryString}` : `${apiUrl}/expenses`
@@ -8,7 +8,6 @@ async function getExpenses(filters) {
 
     const data = await res.json();
 
-    console.log(data);
     return data
 
   } catch (err) {
@@ -26,7 +25,6 @@ async function addExpense(expense) {
     if (!res.ok) throw new Error(`Server error: ${res.status}`);
 
     const data = await res.json()
-    console.log(data)
     return data
 
   } catch (err) {
@@ -42,7 +40,6 @@ async function removeExpense(id) {
     if (!res.ok) throw new Error(`Server error: ${res.status}`);
 
     const data = await res.json()
-    console.log(data)
     return data
 
   } catch (err) {
@@ -62,9 +59,7 @@ async function updateExpense(id, data) {
     if (!res.ok) throw new Error(`Server error: ${res.status}`);
 
     const result = await res.json()
-    console.log(result)
     return result
-
   } catch (err) {
     console.error(err);
 

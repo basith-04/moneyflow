@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { Routes , Route,BrowserRouter } from "react-router-dom";
+import { Routes , Route} from "react-router-dom";
 import Expenses from './pages/Expenses';
 import Categories from './pages/Categories';
 import "./index.css"
 function App() {
-  return  <BrowserRouter> <div> 
+  return <div> 
     
     <Routes>
       <Route path='/' element ={<Expenses />}/>
@@ -13,7 +13,6 @@ function App() {
     </Routes>
 
   </div>
-  </BrowserRouter>
 }
 
 export default App
