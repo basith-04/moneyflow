@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getCategories } from "../services/categoriesService"
+import AddCategory from "../components/AddCategory"
 
 export default function Categories(){
     const [categories,setCategories]=useState([])
@@ -12,6 +13,8 @@ export default function Categories(){
         setCategories(data)
     }
     
-    return <div><h1>show categories , delete add categories</h1></div>
+    return <div><h1>show categories , delete add categories</h1>
+            <AddCategory onAdd={fetchCategories} />
+    </div>
 
 }

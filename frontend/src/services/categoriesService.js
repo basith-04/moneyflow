@@ -19,10 +19,9 @@ async function addCategories(catName) {
     const res = await fetch(`${apiUrl}/category`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: {
-        name: catName
-      }
+      body: JSON.stringify(catName)
     })
+    console.log("frrr" ,catName)
     if (!res.ok) throw new Error(`Server error: ${res.status}`);
     
   }catch(err){
