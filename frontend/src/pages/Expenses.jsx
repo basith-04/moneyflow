@@ -2,6 +2,7 @@ import { getExpenses } from "../services/expenseService"
 import { useState, useEffect } from "react"
 import ExpenseList from "../components/ExpenseList";
 import AddExpenseModal from "../components/AddExpenseModal";
+import FilterExpenses from "../components/FilterExpenses";
 
 export default function Expenses() {
     const [expenses, setExpenses] = useState([])
@@ -11,11 +12,12 @@ export default function Expenses() {
 
         fetchData();
     }, []);
-    async function fetchData() {
-        const data = await getExpenses({});
+    async function fetchData(filters={}) {
+        const data = await getExpenses(filters);
         setExpenses(data);
     }
     return <div><h1>Expenses</h1>
+        <FilterExpenses onFilter={fetchData} />
         {isModalOpen && (
             <AddExpenseModal
                 onClose={() => setIsModalOpen(false)}
