@@ -9,7 +9,6 @@ export default function Expenses() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editingExpense, setEditingExpense] = useState(false);
     const [updatedExpense, setUpdatedExpense] = useState({});
-    console.log(editingExpense)
     useEffect(() => {
 
 
