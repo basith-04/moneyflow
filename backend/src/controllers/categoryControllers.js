@@ -1,10 +1,8 @@
 import pool from '../db/db.js'
 
 async function getCategories(req,res){
-    console.log("frr")
     try{
     const [rows]=await pool.query('select * from categories')
-    console.log(rows)
     res.status(200).json(rows)
      }catch(err){
         console.error('DB ERROR',err)
@@ -13,7 +11,6 @@ async function getCategories(req,res){
 }
 async function addCategory(req, res) {
 
-    console.log(req.body)
     const {name} = req.body
     try{
     const [result] = await pool.query(
