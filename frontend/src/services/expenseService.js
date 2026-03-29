@@ -48,6 +48,7 @@ async function removeExpense(id) {
 }
 async function updateExpense(id, data) {
   try {
+    console.log(id,data)
     const res = await fetch(`${apiUrl}/expenses/${id}`, {
       method: 'PATCH',
       headers: {

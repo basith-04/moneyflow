@@ -1,6 +1,6 @@
 import pool from '../db/db.js'
 async function getExpenses(req, res) {
-    let query = ' select expense_id,title,amount ,date,name,note from expenses inner join categories on category_id=id where 1=1'
+    let query = ' select expense_id,title,amount ,date,name,category_id,note from expenses inner join categories on category_id=id where 1=1'
     let values = []
     try {
         if (req.query.min) {
@@ -84,7 +84,7 @@ async function removeExpense(req, res) {
 
 }
 async function updateExpense(req, res) {
-
+    console.log("frrr")
     const { expense_id } = req.params
     const allowed_fields = ['title', 'amount', 'date', 'category_id', 'group_id', 'note'];
     let query = 'UPDATE expenses SET '
