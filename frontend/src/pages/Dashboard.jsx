@@ -61,21 +61,36 @@ export default function Dashboard() {
     }
 
 
-    return <div> 
-        Dashboard
-        <div>
-            <h1> Total Spend :{totalSpend().toFixed(2)}</h1>
-        </div>
-        <div>
-            <h1> Biggest Single Expense :{biggestSingleExpense()}</h1>
-        </div>
-        <div>
-            <h1> No of transactions this month : {noOfTransactions()}</h1>
-        </div>
-        <div>
-            <h1> top spend category :{topSpendingCategory()}</h1>
-        </div>
+    return (<div className="page-content">
+
+    <div className="page-header">
+      <h2>Dashboard</h2>
+    </div>
+
+    <div className="stat-cards">
+
+      <div className="card stat-card">
+        <p className="stat-label">Total Spent</p>
+        <h3 className="stat-value">₹{totalSpend().toFixed(2)}</h3>
+      </div>
+
+      <div className="card stat-card">
+        <p className="stat-label">Biggest Expense</p>
+        <h3 className="stat-value">₹{biggestSingleExpense().toFixed(2)}</h3>
+      </div>
+
+      <div className="card stat-card">
+        <p className="stat-label">Transactions</p>
+        <h3 className="stat-value">{noOfTransactions()}</h3>
+      </div>
+
+      <div className="card stat-card">
+        <p className="stat-label">Top Category</p>
+        <h3 className="stat-value">{topSpendingCategory() || '—'}</h3>
+      </div>
 
     </div>
+  </div>
+)
 }
 
