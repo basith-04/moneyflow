@@ -1,7 +1,7 @@
 const apiUrl = import.meta.env.VITE_API_URL;
-async function getCategories(){
-     try {
-    
+async function getCategories() {
+  try {
+
     const res = await fetch(`${apiUrl}/category`)
     if (!res.ok) throw new Error(`Server error: ${res.status}`);
 
@@ -14,4 +14,20 @@ async function getCategories(){
   }
 
 }
-export {getCategories}
+async function addCategories(catName) {
+  try {
+    const res = await fetch(`${apiUrl}/category`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: {
+        name: catName
+      }
+    })
+    if (!res.ok) throw new Error(`Server error: ${res.status}`);
+    
+  }catch(err){
+    console.error(err)
+  }
+
+}
+export { getCategories,addCategories }

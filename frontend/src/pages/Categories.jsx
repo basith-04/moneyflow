@@ -1,3 +1,17 @@
+import { useEffect, useState } from "react"
+import { getCategories } from "../services/categoriesService"
+
 export default function Categories(){
+    const [categories,setCategories]=useState([])
+    useEffect(()=>{
+
+        fetchCategories()
+    },[])
+    async function fetchCategories(){
+        const data= await getCategories()
+        setCategories(data)
+    }
+    
     return <div><h1>show categories , delete add categories</h1></div>
+
 }
