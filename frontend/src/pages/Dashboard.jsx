@@ -1,7 +1,81 @@
+import { useEffect, useState } from "react"
+import { getExpenses } from "../services/expenseService"
+
 export default function Dashboard() {
-  return <div> 
-    Dashboard
-  
-  </div>
+    const [expenses, setExpenses] = useState([])
+    useEffect(() => {
+        fetchData();
+
+    }, []);
+    async function fetchData() {
+        const data = await getExpenses({});
+        setExpenses(data);
+    }
+    function thisMonthExpenses() {
+    const now =new Date()
+    const currentMonth = now.getMonth()
+    const currentYear = now.getFullYear()
+    return expenses.filter(el => {
+        const d = new Date(el.date)
+        return d.getMonth() === currentMonth && d.getFullYear() === currentYear
+    })
+}
+    function totalSpend() {
+        if (expenses.length === 0) return 0
+        const thisMonthAmounts = thisMonthExpenses()
+        if (thisMonthAmounts.length === 0) return 0;
+        return thisMonthAmounts.reduce((total, currentEl) => {
+            return total + Number(currentEl.amount)
+        }, 0)
+
+
+    }
+    function biggestSingleExpense() {
+        if (expenses.length === 0) return 0;
+
+        const thisMonthAmounts = thisMonthExpenses()
+            .map(el => Number(el.amount));
+
+        if (thisMonthAmounts.length === 0) return 0;
+
+        return Math.max(...thisMonthAmounts);
+    }
+
+    function topSpendingCategory() {
+        if (expenses.length === 0) return "N/A"
+        let obj = {}
+        thisMonthExpenses().forEach((el) => {
+            obj[el.name] = (obj[el.name] || 0) + Number(el.amount)
+
+        })
+
+        return Object.keys(obj).reduce((highest, currentEl) => {
+            return obj[currentEl] > obj[highest] ? currentEl : highest
+        }, Object.keys(obj)[0])
+
+
+    }
+    function noOfTransactions() {
+
+        return thisMonthExpenses().length
+    }
+
+
+    return <div> 
+        Dashboard
+        <div>
+            <h1> Total Spend :{totalSpend().toFixed(2)}</h1>
+        </div>
+        <div>
+            <h1> Biggest Single Expense :{biggestSingleExpense()}</h1>
+        </div>
+        <div>
+            <h1> No of transactions this month : {noOfTransactions()}</h1>
+        </div>
+        <div>
+            <h1> top spend category :{topSpendingCategory()}</h1>
+        </div>
+
+    </div>
 }
 
