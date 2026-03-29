@@ -63,10 +63,7 @@ export default function Dashboard() {
 
     return (<div className="page-content">
 
-    <div className="page-header">
-      <h2>Dashboard</h2>
-    </div>
-
+    
     <div className="stat-cards">
 
       <div className="card stat-card">

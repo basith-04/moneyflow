@@ -1,9 +1,7 @@
-export default function Header(props) {
-    return <div>
-       Header moneyFlow 
-
-    </div>
-
-
-
+export default function Header() {
+  return (
+    <header className="app-header">
+      <div className="header-avatar">B</div>
+    </header>
+  )
 }
