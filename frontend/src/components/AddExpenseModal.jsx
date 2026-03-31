@@ -5,12 +5,12 @@ import { useState, useEffect } from 'react'
 export default function AddExpenseModal({ onClose, onAdd }) {
   const [title, setTitle] = useState('')
   const [amount, setAmount] = useState('')
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0])
   const [category, setCategory] = useState('')
   const [note, setNote] = useState('')
   const [categories, setCategories] = useState([])
-
-  useEffect(() => {
+  console.log(date)
+   useEffect(() => {
     async function fetchCategories() {
       const data = await getCategories()
       setCategories(data)
