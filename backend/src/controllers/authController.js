@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt'
 import pool from '../db/db.js'
+import jwt from 'jsonwebtoken'
 async function registerUser(req,res){
     const {fullName,userName,password,email}=req.body
     try{
@@ -22,7 +23,7 @@ async function registerUser(req,res){
 async function loginUser(req,res){
     const {userName,password}=req.body
     try{
-        const [rows,result] = await pool.query(
+        const [rows] = await pool.query(
             `SELECT * FROM users WHERE user_name = ?`,
             [userName]
         );
@@ -34,7 +35,9 @@ async function loginUser(req,res){
         if(!isMatch){
             return res.status(401).json({error:'Invalid credentials'})
         }
-        res.status(200).json({message:"Login successful",user_id:user.user_id})
+        
+        const token=jwt.sign({userId:user.user_id},process.env.JWT_SECRET,{expiresIn:'1h'} )
+        res.status(200).json({token})
 
     }catch(err){
         console.error('DB ERROR',err)
