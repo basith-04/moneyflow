@@ -20,6 +20,25 @@ async function registerUser(req,res){
     
 }
 async function loginUser(req,res){
-   
+    const {userName,password}=req.body
+    try{
+        const [rows,result] = await pool.query(
+            `SELECT * FROM users WHERE user_name = ?`,
+            [userName]
+        );
+        if(rows.length === 0){
+            return res.status(401).json({error:'Invalid credentials'})
+        }
+        const user=rows[0]
+        const isMatch=await bcrypt.compare(password,user.password_hash)
+        if(!isMatch){
+            return res.status(401).json({error:'Invalid credentials'})
+        }
+        res.status(200).json({message:"Login successful",user_id:user.user_id})
+
+    }catch(err){
+        console.error('DB ERROR',err)
+        return res.status(500).json({error:'Internal server error'})
+    }
 }
 export {registerUser,loginUser}
