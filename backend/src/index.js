@@ -1,10 +1,12 @@
 import dotenv from 'dotenv'
 dotenv.config()
+import 'dotenv/config'
 import cors from 'cors';
 import express from 'express'
 import {expenseRouter}  from './routes/expenseRouter.js'
 import { categoryRouter } from './routes/categoryRouter.js'
 import { authRouter } from './routes/authRouter.js';
+
 const app =express()
 const PORT=8000
 
