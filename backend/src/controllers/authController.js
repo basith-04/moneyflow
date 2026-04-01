@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
-import { pool } from '../db.js'
+import pool from '../db/db.js'
 async function registerUser(req,res){
-    const {fullName,userName,password,email,}=req.body
+    const {fullName,userName,password,email}=req.body
     try{
     const passwordHash=await bcrypt.hash(password,10)    
     const [result] = await pool.query(
@@ -20,7 +20,6 @@ async function registerUser(req,res){
     
 }
 async function loginUser(req,res){
-    
-
+   
 }
 export {registerUser,loginUser}
