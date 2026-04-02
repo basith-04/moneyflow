@@ -21,7 +21,7 @@ export default function Dashboard() {
     })
 }
     function totalSpend() {
-        if (expenses.length === 0) return 0
+        if (expenses.length === 0) return 0 ;
         const thisMonthAmounts = thisMonthExpenses()
         if (thisMonthAmounts.length === 0) return 0;
         return thisMonthAmounts.reduce((total, currentEl) => {
@@ -42,7 +42,7 @@ export default function Dashboard() {
     }
 
     function topSpendingCategory() {
-        if (expenses.length === 0) return "N/A"
+        if (expenses.length === 0) return "N/A";
         let obj = {}
         thisMonthExpenses().forEach((el) => {
             obj[el.name] = (obj[el.name] || 0) + Number(el.amount)
