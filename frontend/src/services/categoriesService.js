@@ -21,12 +21,11 @@ async function addCategories(catName) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(catName)
     })
-    console.log("frrr" ,catName)
     if (!res.ok) throw new Error(`Server error: ${res.status}`);
     
   }catch(err){
     console.error(err)
-  }
+  } 
 
 }
 export { getCategories,addCategories }
