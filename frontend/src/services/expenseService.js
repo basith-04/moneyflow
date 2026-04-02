@@ -1,9 +1,10 @@
 const apiUrl = import.meta.env.VITE_API_URL;
+import { authFetch } from "./api";
 async function getExpenses(filters={}) {
   try {
     const queryString = new URLSearchParams(filters).toString();
     const url = queryString ? `${apiUrl}/expenses?${queryString}` : `${apiUrl}/expenses`
-    const res = await fetch(url)
+    const res = await authFetch(url)
     if (!res.ok) throw new Error(`Server error: ${res.status}`);
 
     const data = await res.json();
@@ -16,7 +17,7 @@ async function getExpenses(filters={}) {
 
 async function addExpense(expense) {
   try {
-    const res = await fetch(`${apiUrl}/expenses`, {
+    const res = await authFetch(`${apiUrl}/expenses`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(expense)
@@ -33,7 +34,7 @@ async function addExpense(expense) {
 }
 async function removeExpense(id) {
   try {
-    const res = await fetch(`${apiUrl}/expenses/${id}`, {
+    const res = await authFetch(`${apiUrl}/expenses/${id}`, {
       method: 'DELETE'
     })
     if (!res.ok) throw new Error(`Server error: ${res.status}`);
@@ -48,7 +49,7 @@ async function removeExpense(id) {
 }
 async function updateExpense(id, data) {
   try {
-    const res = await fetch(`${apiUrl}/expenses/${id}`, {
+    const res = await authFetch(`${apiUrl}/expenses/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'

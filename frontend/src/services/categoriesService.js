@@ -1,8 +1,9 @@
 const apiUrl = import.meta.env.VITE_API_URL;
+import { authFetch } from "./api";
 async function getCategories() {
   try {
 
-    const res = await fetch(`${apiUrl}/category`)
+    const res = await authFetch(`${apiUrl}/category`)
     if (!res.ok) throw new Error(`Server error: ${res.status}`);
 
     const data = await res.json();
@@ -16,7 +17,8 @@ async function getCategories() {
 }
 async function addCategories(catName) {
   try {
-    const res = await fetch(`${apiUrl}/category`, {
+    
+    const res = await authFetch(`${apiUrl}/category`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(catName)
