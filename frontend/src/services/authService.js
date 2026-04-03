@@ -16,5 +16,19 @@ async function login(user) {
     console.error(err)
   }
 
-}    
-export {login}
+}   
+async function register(user){
+  try{
+    const res = await fetch(`${apiUrl}/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user)
+    })
+    if (!res.ok) throw new Error(`Server error: ${res.status}`);
+
+  }catch(err){
+    console.error(err)
+  }
+  
+} 
+export {login,register}
