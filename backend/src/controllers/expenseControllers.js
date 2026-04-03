@@ -38,15 +38,16 @@ async function getExpenses(req, res) {
 async function addExpense(req, res) {
     console.log(req.body)
     const { title, amount, date, category_id, group_id, note } = req.body
+    const user_id=req.user.userId
     if (!title || !amount || !date || !category_id) {
         return res.status(400).json({ error: "missing required fields" })
     }
     try {
         const [result] = await pool.query(
             `INSERT INTO expenses 
-       (title, amount, date, category_id, group_id, note)
-       VALUES (?, ?, ?, ?, ?, ?)`,
-            [title, amount, date, category_id, group_id || null, note || null]
+       (title, amount, date, category_id, group_id, note, user_id)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [title, amount, date, category_id, group_id || null, note || null, user_id]
         );
         res.status(201).json({ message: "Expense added", expense_id: result.insertId })
 
