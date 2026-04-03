@@ -2,19 +2,25 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../services/authService";
 import { useState } from "react";
 
-export default function LoginForm(){
+export default function LoginForm(props) {
     const navigate = useNavigate();
     const [userName, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(!userName||!password) {
+        if (!userName || !password) {
             alert("Please fill in both fields");
             return;
         }
-        await login({userName, password})
-        
-        navigate('/')
+
+        try {
+            await login({ userName, password })
+
+            navigate('/')
+        } catch (err) {
+            console.error(err)
+        }
+
     }
     return <div>
         <h1>Login</h1>
@@ -23,5 +29,5 @@ export default function LoginForm(){
             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <button type="submit">Login</button>
         </form>
-    </div>
+        <p onClick={props.onSwitch} style={{ cursor: 'pointer' }}>Don't have an account? Register</p>    </div>
 }
