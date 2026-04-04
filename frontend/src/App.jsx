@@ -5,6 +5,7 @@ import Layout from './components/Layout.jsx'
 import "./index.css"
 import Dashboard from "./pages/Dashboard.jsx";
 import Auth from "./pages/Auth.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 function App() {
   return <div>
 
@@ -12,7 +13,7 @@ function App() {
 
       <Route path='/auth' element={<Auth />} />
 
-      <Route path='/' element={<Layout />}>
+      <Route path='/' element={<ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route path='/' element={<Dashboard />} />
         <Route path='expenses' element={<Expenses />} />
         <Route path='categories' element={<Categories />} />

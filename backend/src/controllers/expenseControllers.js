@@ -1,8 +1,12 @@
 import pool from '../db/db.js'
 async function getExpenses(req, res) {
-    let query = ' select expense_id,title,amount ,date,name,category_id,note from expenses inner join categories on category_id=id where 1=1'
+    let query = ' select expense_id,title,amount ,DATE_FORMAT(date, "%Y-%m-%d") as date,name,category_id,note from expenses E inner join categories C on C.id = E.category_id where E.user_id=?'
     let values = []
+    const user_id = req.user.userId
+    values.push(user_id)
+
     try {
+
         if (req.query.min) {
             query += ' AND amount >= ?';
             values.push(req.query.min);
@@ -26,7 +30,7 @@ async function getExpenses(req, res) {
             values.push(req.query.to);
         }
 
-        query +=' ORDER BY expense_id DESC'
+        query += ' ORDER BY expense_id DESC'
         const [rows] = await pool.query(query, values)
         return res.status(200).json(rows)
 
@@ -38,7 +42,7 @@ async function getExpenses(req, res) {
 async function addExpense(req, res) {
     console.log(req.body)
     const { title, amount, date, category_id, group_id, note } = req.body
-    const user_id=req.user.userId
+    const user_id = req.user.userId
     if (!title || !amount || !date || !category_id) {
         return res.status(400).json({ error: "missing required fields" })
     }
@@ -60,14 +64,14 @@ async function addExpense(req, res) {
 async function removeExpense(req, res) {
 
     const { expense_id } = req.params
-    console.log(req.params)
+    const user_id = req.user.userId
     if (!expense_id) {
         return res.status(400).json({ error: "missing required fields" })
     }
     try {
         const [result] = await pool.query(
-            `DELETE FROM expenses WHERE expense_id = ?`,
-            [expense_id]
+            `DELETE FROM expenses WHERE expense_id = ? AND user_id = ?`,
+            [expense_id, user_id]
         );
         if (result.affectedRows > 0) {
             return res.status(200).json({ message: "Expense deleted" })
@@ -87,6 +91,7 @@ async function removeExpense(req, res) {
 async function updateExpense(req, res) {
     console.log("frrr")
     const { expense_id } = req.params
+    const user_id = req.user.userId
     const allowed_fields = ['title', 'amount', 'date', 'category_id', 'group_id', 'note'];
     let query = 'UPDATE expenses SET '
     let values = []
@@ -103,9 +108,10 @@ async function updateExpense(req, res) {
 
         }
     })
-    if(values.length == 0) return res.status(400).json({error:"invalid fields"})
-    query += ' WHERE expense_id = ?';
+    if (values.length == 0) return res.status(400).json({ error: "invalid fields" })
+    query += ' WHERE expense_id = ? AND user_id = ?';
     values.push(expense_id);
+    values.push(user_id);
 
     try {
         const [result] = await pool.query(query, values);
