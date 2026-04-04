@@ -30,4 +30,16 @@ async function addCategories(catName) {
   } 
 
 }
-export { getCategories,addCategories }
+async function removeCategory(id){
+  try {
+    
+    const res = await authFetch(`${apiUrl}/category/${id}`, {
+      method: "DELETE",
+    })
+    if (!res.ok) throw new Error(`Server error: ${res.status}`);
+    
+  }catch(err){
+    console.error(err)
+  } 
+}
+export { getCategories,addCategories,removeCategory }
