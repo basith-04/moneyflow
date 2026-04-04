@@ -1,4 +1,4 @@
-async function authFetch(url, options={}) {
+async function authFetch(url, options = {}) {
     const token = localStorage.getItem("token");
     if (token) {
         options.headers = {
@@ -6,6 +6,15 @@ async function authFetch(url, options={}) {
             "Authorization": `Bearer ${token}`
         }
     }
-    return fetch(url, options);
+    const res = await fetch(url, options);
+
+    if (res.status === 401) {
+        localStorage.removeItem("token");
+        window.location.href = "/auth";
+        return; // stop execution
+    }
+
+    return res;
+
 }
 export { authFetch }
