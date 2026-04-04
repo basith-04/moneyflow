@@ -1,6 +1,6 @@
 import pool from '../db/db.js'
 async function getExpenses(req, res) {
-    let query = ' select expense_id,title,amount ,date,name,category_id,note from expenses E inner join categories C on C.id = E.category_id where E.user_id=?'
+    let query = ' select expense_id,title,amount ,DATE_FORMAT(date, "%Y-%m-%d") as date,name,category_id,note from expenses E inner join categories C on C.id = E.category_id where E.user_id=?'
     let values = []
     const user_id = req.user.userId
     values.push(user_id)
