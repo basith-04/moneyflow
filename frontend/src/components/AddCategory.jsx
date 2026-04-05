@@ -26,7 +26,7 @@ export default function AddCategory({ onAdd }) {
             placeholder="Title"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="add-expense-input"
+            className="add-expense-input" required
         />
 
         <button type="submit" className="add-expense-btn">Add Category</button>
