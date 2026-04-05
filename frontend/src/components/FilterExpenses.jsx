@@ -22,29 +22,51 @@ export default function FilterExpenses(props) {
         props.onFilter({ min: minAmount, max: maxAmount, from: startDate, to: endDate, category_id: category });
     }
 
-    return <div>
-        <h1>Filter Expenses</h1>
-        <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="min" value={minAmount}
-                onChange={e => setMinAmount(e.target.value)} />
+    return <div className="filter-container">
+    <h1 className="filter-title">Filter Expenses</h1>
+    <form onSubmit={handleSubmit} className="filter-form">
+        <input 
+            type="text" 
+            placeholder="min" 
+            value={minAmount}
+            onChange={e => setMinAmount(e.target.value)} 
+            className="filter-input"
+        />
 
-            <input type="text" placeholder="max" value={maxAmount}
-                onChange={e => setMaxAmount(e.target.value)} />
+        <input 
+            type="text" 
+            placeholder="max" 
+            value={maxAmount}
+            onChange={e => setMaxAmount(e.target.value)} 
+            className="filter-input"
+        />
 
-            <input type="date" value={startDate}
-                onChange={e => setStartDate(e.target.value)} />
+        <input 
+            type="date" 
+            value={startDate}
+            onChange={e => setStartDate(e.target.value)} 
+            className="filter-input"
+        />
 
-            <input type="date" value={endDate}
-                onChange={e => setEndDate(e.target.value)} />
-                
-            <select value={category} onChange={e => setCategory(e.target.value)}>
-                <option value="">Select Category</option>
-                {categories.map(cat => (
-                    <option key={cat.id} value={cat.id}>{cat.name}</option>
-                ))}
-            </select>
-            <button type="submit" className="btn btn-primary">Apply Filters</button>
-
-        </form>
-    </div>
+        <input 
+            type="date" 
+            value={endDate}
+            onChange={e => setEndDate(e.target.value)} 
+            className="filter-input"
+        />
+            
+        <select 
+            value={category} 
+            onChange={e => setCategory(e.target.value)}
+            className="filter-input"
+        >
+            <option value="">Select Category</option>
+            {categories.map(cat => (
+                <option key={cat.id} value={cat.id}>{cat.name}</option>
+            ))}
+        </select>
+        
+        <button type="submit" className="filter-btn">Apply Filters</button>
+    </form>
+</div>
 }

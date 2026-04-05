@@ -374,3 +374,109 @@ textarea {
 .auth-box p:hover {
   color: #4f8ef7;
 }
+
+/* Container & Title */
+.filter-container {
+    margin-bottom: 20px;
+    font-family: sans-serif;
+}
+
+.filter-title {
+    margin: 0 0 10px 0;
+    font-size: 24px;
+}
+
+/* Flexbox form layout */
+.filter-form {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 8px; /* Spacing between inputs */
+    align-items: center;
+}
+
+/* Inputs & Select */
+.filter-input {
+    padding: 6px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #495057;
+    background-color: #fff;
+    outline: none;
+}
+
+.filter-input:focus {
+    border-color: #80bdff;
+}
+
+/* Red Button */
+.filter-btn {
+    padding: 6px 16px;
+    background-color: #eb4f4f; /* Matches the red in your screenshot */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.filter-btn:hover {
+    background-color: #d64242;
+}
+
+/* Container and Heading */
+.add-expense-container {
+    margin-bottom: 24px;
+    font-family: sans-serif;
+    padding: 16px;
+    background-color: #ffffff; /* Light gray background to make it stand out slightly */
+    border-radius: 6px;
+    max-width: 400px; /* Keeps the form from stretching too far */
+}
+
+.add-expense-title {
+    margin: 0 0 12px 0;
+    font-size: 20px;
+    color: #212529;
+}
+
+/* Form Layout */
+.add-expense-form {
+    display: flex;
+    gap: 10px; /* Space between input and button */
+    align-items: center;
+}
+
+/* Input Field */
+.add-expense-input {
+    flex-grow: 1; /* Makes the input take up the remaining space */
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #495057;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.add-expense-input:focus {
+    border-color: #80bdff;
+}
+
+/* Submit Button */
+.add-expense-btn {
+    padding: 8px 16px;
+    background-color: #0d6efd; /* A nice primary blue for "Add" actions */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-expense-btn:hover {
+    background-color: #0b5ed7; /* Slightly darker blue on hover */
+}

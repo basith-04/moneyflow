@@ -18,20 +18,19 @@ export default function AddCategory({ onAdd }) {
 
   }
 
-    return <div> 
-    <h2 > Add Expense</h2>
-        <form onSubmit={handleSubmit} >
-            
+    return <div className="add-expense-container"> 
+    <h2 className="add-expense-title">Add Category</h2>
+    <form onSubmit={handleSubmit} className="add-expense-form">
+        <input
+            type="text"
+            placeholder="Title"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="add-expense-input" required
+        />
 
-            <input
-                type="text"
-                placeholder="Title"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-
-            <button type="submit">Add Category</button>
-        </form>
-    </div>
+        <button type="submit" className="add-expense-btn">Add Category</button>
+    </form>
+</div>
 
 }
