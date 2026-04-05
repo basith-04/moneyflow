@@ -14,7 +14,7 @@ export default function Categories(){
         setCategories(data)
     }
     
-    return <div><h1>show categories , delete add categories</h1>
+    return <div>
             <AddCategory onAdd={fetchCategories} />
             <CategoryList categories={categories} onDelete={fetchCategories} />
     </div>
