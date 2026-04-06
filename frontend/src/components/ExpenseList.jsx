@@ -15,8 +15,9 @@ export default function ExpenseList(props) {
                 </tr>
             </thead>
             <tbody>
-                {props.expenses.map((element) => {
-                    return <ExpenseItem key={element.expense_id}setUpdatedExpense={props.setUpdatedExpense} setEditingExpense={props.setEditingExpense} onDelete={props.onDelete} item={element} />
+                {props.expenses.map((element,index) => {
+
+                    return <ExpenseItem  key={index} id={index} setUpdatedExpense={props.setUpdatedExpense} setEditingExpense={props.setEditingExpense} onDelete={props.onDelete} item={element} />
                 })}
             </tbody>
         </table>
