@@ -480,3 +480,80 @@ textarea {
 .add-expense-btn:hover {
     background-color: #0b5ed7; /* Slightly darker blue on hover */
 }
+
+/* ── Mobile Responsive ───────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Hide sidebar, show full main area */
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  aside {
+    display: none;
+  }
+
+  /* Header becomes a mobile topbar */
+  header {
+    padding: 0 16px;
+    font-size: 14px;
+  }
+
+  /* Page content padding reduced */
+  .page-content {
+    padding: 16px;
+  }
+
+  /* Stat cards: 2 cols on mobile */
+  .stat-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+  }
+
+  /* Table scrollable */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* Modal full width on mobile */
+  .modal {
+    width: 95vw;
+    max-width: 95vw;
+    margin: 0 10px;
+  }
+
+  /* Filter form stacks vertically */
+  .filter-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-input,
+  .filter-btn {
+    width: 100%;
+  }
+
+  /* Add expense form stacks */
+  .add-expense-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .add-expense-input,
+  .add-expense-btn {
+    width: 100%;
+  }
+
+  /* FAB repositioned */
+  .addExpenseBtn {
+    bottom: 20px;
+    right: 16px;
+  }
+}
+
