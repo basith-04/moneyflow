@@ -15,8 +15,8 @@ app.use(express.json())
 app.use('/expenses',expenseRouter)
 app.use('/category',categoryRouter)
 app.use('/auth',authRouter)
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`)
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`)
 }).on('error', (err) => {
   console.error('Failed to start server:', err)
 }) 
