@@ -1,11 +1,12 @@
 import { removeExpense } from "../services/expenseService"
 export default function ExpenseItem(props) {
     function handleClick(){
+     
         props.setUpdatedExpense(props.item)
         props.setEditingExpense(true)
     }   
         return <tr>
-            <td>{props.item.expense_id}</td>
+            <td>{props.id+1}</td>
             <td>{props.item.title}</td>
             <td>{props.item.amount}</td>
             <td>{props.item.date}</td>
