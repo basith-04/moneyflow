@@ -1,16 +1,8 @@
 import { useEffect, useState } from "react"
 import { getExpenses } from "../services/expenseService"
-
+import { useOutletContext } from "react-router-dom"
 export default function Dashboard() {
-    const [expenses, setExpenses] = useState([])
-    useEffect(() => {
-        fetchData();
-
-    }, []);
-    async function fetchData() {
-        const data = await getExpenses({});
-        setExpenses(data);
-    }
+    const {expenses}=useOutletContext()
     function thisMonthExpenses() {
     const now =new Date()
     const currentMonth = now.getMonth()

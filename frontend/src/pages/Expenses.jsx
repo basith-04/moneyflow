@@ -4,20 +4,12 @@ import ExpenseList from "../components/ExpenseList";
 import AddExpenseModal from "../components/AddExpenseModal";
 import FilterExpenses from "../components/FilterExpenses";
 import EditExpenseModal from "../components/EditExpenseModal";
+import { useOutletContext } from "react-router-dom"
 export default function Expenses() {
-    const [expenses, setExpenses] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editingExpense, setEditingExpense] = useState(false);
     const [updatedExpense, setUpdatedExpense] = useState({});
-    useEffect(() => {
-
-
-        fetchData();
-    }, []);
-    async function fetchData(filters = {}) {
-        const data = await getExpenses(filters);
-        setExpenses(data);
-    }
+    const { expenses, setExpenses,fetchData } = useOutletContext()
     return <div><h1>Expenses</h1>
         <FilterExpenses onFilter={fetchData} />
         {isModalOpen && (
