@@ -6,15 +6,9 @@ export default function FilterExpenses(props) {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [category, setCategory] = useState("");
-    const [categories, setCategories] = useState([]);
+    const categories=props.categories
 
-    useEffect(() => {
-        async function fetchCategories() {
-            const data = await getCategories();
-            setCategories(data);
-        }
-        fetchCategories();
-    }, []);
+    
 
     function handleSubmit(e) {
         e.preventDefault();

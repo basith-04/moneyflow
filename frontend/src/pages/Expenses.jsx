@@ -4,32 +4,26 @@ import ExpenseList from "../components/ExpenseList";
 import AddExpenseModal from "../components/AddExpenseModal";
 import FilterExpenses from "../components/FilterExpenses";
 import EditExpenseModal from "../components/EditExpenseModal";
+import { useOutletContext } from "react-router-dom"
 export default function Expenses() {
-    const [expenses, setExpenses] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editingExpense, setEditingExpense] = useState(false);
     const [updatedExpense, setUpdatedExpense] = useState({});
-    useEffect(() => {
-
-
-        fetchData();
-    }, []);
-    async function fetchData(filters = {}) {
-        const data = await getExpenses(filters);
-        setExpenses(data);
-    }
+    const { expenses, setExpenses,fetchData ,categories,setCategories,fetchCategories} = useOutletContext()
     return <div><h1>Expenses</h1>
-        <FilterExpenses onFilter={fetchData} />
+        <FilterExpenses onFilter={fetchData} categories={categories} />
         {isModalOpen && (
             <AddExpenseModal
                 onClose={() => setIsModalOpen(false)}
                 onAdd={() => { fetchData(); setIsModalOpen(false) }}
+                categoriesList={categories}
             />
         )}
         {editingExpense && (
             <EditExpenseModal
                 onClose={() => setEditingExpense(false)}
                 updatedExpense={updatedExpense}
+                categories={categories}
             />
         )}
         {/* <AddExpense onAdd={fetchData} /> */}

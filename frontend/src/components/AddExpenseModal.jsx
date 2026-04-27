@@ -2,20 +2,14 @@ import { getCategories } from '../services/categoriesService'
 import { addExpense } from '../services/expenseService'
 import { useState, useEffect } from 'react'
 
-export default function AddExpenseModal({ onClose, onAdd }) {
+export default function AddExpenseModal({ onClose, onAdd,categoriesList }) {
   const [title, setTitle] = useState('')
   const [amount, setAmount] = useState('')
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
   const [category, setCategory] = useState('')
   const [note, setNote] = useState('')
-  const [categories, setCategories] = useState([])
-  console.log(date)
+  const categories= categoriesList
    useEffect(() => {
-    async function fetchCategories() {
-      const data = await getCategories()
-      setCategories(data)
-    }
-    fetchCategories()
 
     function handleKeyDown(e) {
       if (e.key === 'Escape') onClose()

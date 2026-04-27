@@ -1,18 +1,10 @@
 import { useEffect, useState } from "react"
-import { getCategories } from "../services/categoriesService"
 import AddCategory from "../components/AddCategory"
 import CategoryList from "../components/CategoryList"
+import { useOutletContext } from "react-router-dom"
 
 export default function Categories(){
-    const [categories,setCategories]=useState([])
-    useEffect(()=>{
-
-        fetchCategories()
-    },[])
-    async function fetchCategories(){
-        const data= await getCategories()
-        setCategories(data)
-    }
+    const {categories,setCategories,fetchCategories}=useOutletContext()
     
     return <div>
             <AddCategory onAdd={fetchCategories} />
