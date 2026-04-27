@@ -9,19 +9,21 @@ export default function Expenses() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editingExpense, setEditingExpense] = useState(false);
     const [updatedExpense, setUpdatedExpense] = useState({});
-    const { expenses, setExpenses,fetchData } = useOutletContext()
+    const { expenses, setExpenses,fetchData ,categories,setCategories,fetchCategories} = useOutletContext()
     return <div><h1>Expenses</h1>
-        <FilterExpenses onFilter={fetchData} />
+        <FilterExpenses onFilter={fetchData} categories={categories} />
         {isModalOpen && (
             <AddExpenseModal
                 onClose={() => setIsModalOpen(false)}
                 onAdd={() => { fetchData(); setIsModalOpen(false) }}
+                categoriesList={categories}
             />
         )}
         {editingExpense && (
             <EditExpenseModal
                 onClose={() => setEditingExpense(false)}
                 updatedExpense={updatedExpense}
+                categories={categories}
             />
         )}
         {/* <AddExpense onAdd={fetchData} /> */}

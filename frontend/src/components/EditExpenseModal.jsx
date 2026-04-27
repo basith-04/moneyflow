@@ -7,15 +7,8 @@ export default function EditExpenseModal(props) {
     const [date, setDate] = useState(props.updatedExpense.date.slice(0,10))
     const [category, setCategory] = useState(props.updatedExpense.category_id)
     const [note, setNote] = useState(props.updatedExpense.note)
-    const [categories, setCategories] = useState([])
+    const categories=props.categories
    
-  useEffect(() => {
-    async function fetchCategories() {
-      const data = await getCategories()
-      setCategories(data)
-    }
-    fetchCategories()
-  }, [])
 
     async function handleSubmit(e) {
         e.preventDefault()

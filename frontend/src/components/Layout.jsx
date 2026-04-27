@@ -2,9 +2,11 @@ import { Outlet } from "react-router-dom"
 import SideBar from "./SideBar"
 import Header from "./Header"
 import { getExpenses } from "../services/expenseService"
-import { useState,useEffect } from "react"
+import { getCategories } from "../services/categoriesService"
+import { useState, useEffect } from "react"
 function Layout() {
   const [expenses, setExpenses] = useState([])
+  const [categories, setCategories] = useState([])
 
   useEffect(() => {
 
@@ -15,6 +17,15 @@ function Layout() {
     const data = await getExpenses(filters);
     setExpenses(data);
   }
+  useEffect(() => {
+
+    fetchCategories()
+  }, [])
+  async function fetchCategories() {
+    const data = await getCategories()
+    setCategories(data)
+  }
+
 
   return (
     <div className="app-shell">
@@ -22,7 +33,7 @@ function Layout() {
       <div className="main-area">
         <Header />
         <main className="page-content">
-          <Outlet context={{expenses,setExpenses,fetchData}}/>
+          <Outlet context={{ expenses, setExpenses, fetchData,categories,setCategories,fetchCategories }} />
         </main>
       </div>
     </div>
