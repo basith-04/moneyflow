@@ -31,6 +31,9 @@ aside nav ul {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 aside nav a {
@@ -333,10 +336,11 @@ textarea {
   border: 1px solid #2e2e2e;
   border-radius: 8px;
   padding: 12px 14px;
-  color: #f0f0f0;
+  color: #362525;
   font-size: 0.9rem;
   outline: none;
   transition: border-color 0.2s;
+  
 }
 
 .login-form input::placeholder {
@@ -484,13 +488,47 @@ textarea {
 /* ── Mobile Responsive ───────────────────────────────── */
 @media (max-width: 768px) {
 
-  /* Hide sidebar, show full main area */
+  /* Keep nav visible as fixed bottom navigation */
   .app-shell {
     grid-template-columns: 1fr;
   }
 
   aside {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    width: 100%;
+    height: auto;
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+    gap: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 -8px 18px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+
+  .sidebar-brand {
     display: none;
+  }
+
+  aside nav ul {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    width: 100%;
+  }
+
+  aside nav li {
+    min-width: 0;
+  }
+
+  aside nav a {
+    justify-content: center;
+    padding: 9px 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    border-radius: 10px;
   }
 
   /* Header becomes a mobile topbar */
@@ -502,6 +540,7 @@ textarea {
   /* Page content padding reduced */
   .page-content {
     padding: 16px;
+    padding-bottom: calc(84px + env(safe-area-inset-bottom));
   }
 
   /* Stat cards: 2 cols on mobile */
@@ -552,7 +591,7 @@ textarea {
 
   /* FAB repositioned */
   .addExpenseBtn {
-    bottom: 20px;
+    bottom: calc(84px + env(safe-area-inset-bottom));
     right: 16px;
   }
 }
