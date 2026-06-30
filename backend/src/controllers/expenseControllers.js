@@ -1,37 +1,38 @@
 import pool from '../db/db.js'
 async function getExpenses(req, res) {
-    let query = ' select expense_id,title,amount ,DATE_FORMAT(date, "%Y-%m-%d") as date,name,category_id,note from expenses E inner join categories C on C.id = E.category_id where E.user_id=?'
-    let values = []
+    let query = " select expense_id,title,amount::float as amount ,to_char(date, 'YYYY-MM-DD') as date,name,category_id,note from expenses E inner join categories C on C.id = E.category_id where E.user_id=$1"
+    const values = []
     const user_id = req.user.userId
     values.push(user_id)
 
     try {
 
         if (req.query.min) {
-            query += ' AND amount >= ?';
             values.push(req.query.min);
+            query += ` AND amount >= $${values.length}`;
         }
 
         if (req.query.max) {
-            query += ' AND amount <= ?';
             values.push(req.query.max);
+            query += ` AND amount <= $${values.length}`;
         }
+
         if (req.query.category_id) {
-            query += ' AND category_id = ?';
             values.push(req.query.category_id);
+            query += ` AND category_id = $${values.length}`;
         }
         if (req.query.from) {
-            query += ' AND date >= ?';
             values.push(req.query.from);
+            query += ` AND date >= $${values.length}`;
         }
 
         if (req.query.to) {
-            query += ' AND date <= ?';
             values.push(req.query.to);
+            query += ` AND date <= $${values.length}`;
         }
 
         query += ' ORDER BY expense_id DESC'
-        const [rows] = await pool.query(query, values)
+        const { rows } = await pool.query(query, values)
         return res.status(200).json(rows)
 
     } catch (err) {
@@ -47,13 +48,14 @@ async function addExpense(req, res) {
         return res.status(400).json({ error: "missing required fields" })
     }
     try {
-        const [result] = await pool.query(
+        const result = await pool.query(
             `INSERT INTO expenses 
        (title, amount, date, category_id, group_id, note, user_id)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
+       RETURNING expense_id`,
             [title, amount, date, category_id, group_id || null, note || null, user_id]
         );
-        res.status(201).json({ message: "Expense added", expense_id: result.insertId })
+        res.status(201).json({ message: "Expense added", expense_id: result.rows[0].expense_id })
 
     } catch (err) {
         console.error('DB ERROR', err)
@@ -69,11 +71,11 @@ async function removeExpense(req, res) {
         return res.status(400).json({ error: "missing required fields" })
     }
     try {
-        const [result] = await pool.query(
-            `DELETE FROM expenses WHERE expense_id = ? AND user_id = ?`,
+        const result = await pool.query(
+            `DELETE FROM expenses WHERE expense_id = $1 AND user_id = $2`,
             [expense_id, user_id]
         );
-        if (result.affectedRows > 0) {
+        if (result.rowCount > 0) {
             return res.status(200).json({ message: "Expense deleted" })
 
         }
@@ -103,19 +105,20 @@ async function updateExpense(req, res) {
             if (values.length > 0) {
                 query += ','
             }
-            query += `${key}=? `
             values.push(req.body[key])
+            query += `${key}=$${values.length} `
 
         }
     })
     if (values.length == 0) return res.status(400).json({ error: "invalid fields" })
-    query += ' WHERE expense_id = ? AND user_id = ?';
     values.push(expense_id);
+    query += ` WHERE expense_id = $${values.length} AND user_id = `;
     values.push(user_id);
+    query += `$${values.length}`;
 
     try {
-        const [result] = await pool.query(query, values);
-        if (result.affectedRows > 0) {
+        const result = await pool.query(query, values);
+        if (result.rowCount > 0) {
             return res.status(200).json({ message: "Expense updated" })
 
         }
