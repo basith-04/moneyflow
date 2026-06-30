@@ -6,7 +6,7 @@ A personal expense tracker built to actually understand the stack — no Firebas
 
 ##  Why this exists
 
-Most expense trackers are either bloated or use too many abstractions to learn from. MoneyFlow was built from scratch as a deliberate learning project — raw `mysql2` instead of an ORM, manually handled JWTs instead of Firebase Auth, and a clean React frontend with lifted state and a proper services layer.
+Most expense trackers are either bloated or use too many abstractions to learn from. MoneyFlow was built from scratch as a deliberate learning project — raw PostgreSQL queries instead of an ORM, manually handled JWTs instead of Firebase Auth, and a clean React frontend with lifted state and a proper services layer.
 
 It's a real working app. It's also how I learned backend fundamentals that actually stick.
 
@@ -29,7 +29,7 @@ It's a real working app. It's also how I learned backend fundamentals that actua
 |------------|-------------------------------|
 | Frontend   | React + Vite                  |
 | Backend    | Node.js + Express             |
-| Database   | MySQL (`mysql2` — no ORM)     |
+| Database   | PostgreSQL (`pg` — no ORM)    |
 | Auth       | JWT + bcrypt                  |
 | Deployment |                               |
 
@@ -39,15 +39,15 @@ It's a real working app. It's also how I learned backend fundamentals that actua
 
 ```
 moneyflow/
-├── client/                 # React + Vite frontend
+├── frontend/               # React + Vite frontend
 │   ├── src/
 │   │   ├── components/     # Reusable UI components
 │   │   ├── pages/          # Dashboard, Expenses, Categories
 │   │   └── services/       # API call abstractions
-├── server/                 # Express backend
+├── backend/                # Express backend
 │   ├── routes/             # API routes
 │   ├── controllers/        # Route logic
-│   └── db/                 # MySQL connection + queries
+│   └── db/                 # PostgreSQL connection
 └── README.md
 ```
 
@@ -58,7 +58,7 @@ moneyflow/
 ### Prerequisites
 
 - Node.js v18+
-- MySQL running locally
+- PostgreSQL running locally
 
 ### 1. Clone the repo
 
@@ -70,19 +70,28 @@ cd moneyflow
 ### 2. Set up the backend
 
 ```bash
-cd server
+cd backend
 npm install
 ```
 
-Create a `.env` file:
+Create a `.env` file from `.env.example`:
 
 ```env
 DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=yourpassword
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=postgres
 DB_NAME=moneyflow
+DB_SSL=false
 JWT_SECRET=your_secret_key
 PORT=5000
+```
+
+Create the database and tables:
+
+```bash
+createdb moneyflow
+psql -d moneyflow -f schema.sql
 ```
 
 Run the server:
@@ -94,7 +103,7 @@ npm run dev
 ### 3. Set up the frontend
 
 ```bash
-cd client
+cd frontend
 npm install
 npm run dev
 ```
@@ -154,4 +163,3 @@ This is a personal learning project, but PRs and suggestions are welcome. Open a
 MIT
 
 ---
-

@@ -4,16 +4,19 @@ import jwt from 'jsonwebtoken'
 
 async function registerUser(req, res) {
     const { fullName, userName, password, email } = req.body
+    console.log(req.body)
     try {
         const passwordHash = await bcrypt.hash(password, 10)
-        const [result] = await pool.query(
+        const result = await pool.query(
             `INSERT INTO users 
        (user_name,full_name,email_address,password_hash)
-       VALUES (?,?,?,?)`,
+       VALUES ($1,$2,$3,$4)
+       RETURNING user_id`,
             [userName, fullName, email, passwordHash]
         );
-        await defaultCategories(result.insertId)
-        res.status(201).json({ message: "user added", user_id: result.insertId })
+        const userId = result.rows[0].user_id
+        await defaultCategories(userId)
+        res.status(201).json({ message: "user added", user_id: userId })
 
     } catch (err) {
         console.error('DB ERROR', err)
@@ -39,15 +42,16 @@ async function defaultCategories(user_id) {
         "Miscellaneous"
     ];
     
-        const values = defaultCategories.map(item => [item, user_id])
-        const [result] = await pool.query(`INSERT INTO categories (name, user_id) VALUES ?`, [values])
+        const placeholders = defaultCategories.map((_, index) => `($${index * 2 + 1}, $${index * 2 + 2})`).join(', ')
+        const values = defaultCategories.flatMap(item => [item, user_id])
+        await pool.query(`INSERT INTO categories (name, user_id) VALUES ${placeholders}`, values)
    
 }
 async function loginUser(req, res) {
     const { userName, password } = req.body
     try {
-        const [rows] = await pool.query(
-            `SELECT * FROM users WHERE user_name = ?`,
+        const { rows } = await pool.query(
+            `SELECT * FROM users WHERE user_name = $1`,
             [userName]
         );
         if (rows.length === 0) {
