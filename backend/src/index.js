@@ -15,6 +15,9 @@ app.use(express.json())
 app.use('/expenses',expenseRouter)
 app.use('/category',categoryRouter)
 app.use('/auth',authRouter)
+app.get('/alive',(req,res)=>{
+  return res.json({status:"alive"})
+})
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`)
 }).on('error', (err) => {
