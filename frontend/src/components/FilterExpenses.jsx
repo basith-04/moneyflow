@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
-import { getCategories } from "../services/categoriesService";
+import { useState } from "react";
+import { paymentModes } from "../paymentModes";
 export default function FilterExpenses(props) {
-    const [minAmount, setMinAmount] = useState("");
-    const [maxAmount, setMaxAmount] = useState("");
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
-    const [category, setCategory] = useState("");
+    const { filters } = props;
+    const [minAmount, setMinAmount] = useState(filters.min ?? "");
+    const [maxAmount, setMaxAmount] = useState(filters.max ?? "");
+    const [startDate, setStartDate] = useState(filters.from ?? "");
+    const [endDate, setEndDate] = useState(filters.to ?? "");
+    const [category, setCategory] = useState(filters.category_id ?? "");
+    const [modeOfPayment, setModeOfPayment] = useState(filters.payment_mode ?? "");
     const categories=props.categories
 
     
@@ -13,7 +15,7 @@ export default function FilterExpenses(props) {
     function handleSubmit(e) {
         e.preventDefault();
 
-        props.onFilter({ min: minAmount, max: maxAmount, from: startDate, to: endDate, category_id: category });
+        props.onFilter({ min: minAmount, max: maxAmount, from: startDate, to: endDate, category_id: category, payment_mode: modeOfPayment });
     }
 
     return <div className="filter-container">
@@ -57,6 +59,18 @@ export default function FilterExpenses(props) {
             <option value="">Select Category</option>
             {categories.map(cat => (
                 <option key={cat.id} value={cat.id}>{cat.name}</option>
+            ))}
+        </select>
+
+        <select
+            aria-label="Mode of payment"
+            value={modeOfPayment}
+            onChange={e => setModeOfPayment(e.target.value)}
+            className="filter-input"
+        >
+            <option value="">All Payment Modes</option>
+            {paymentModes.map(mode => (
+                <option key={mode} value={mode}>{mode}</option>
             ))}
         </select>
         

@@ -162,6 +162,11 @@ textarea {
   margin-bottom: 24px;
 }
 
+.stat-cards.expense-stat-cards {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 16px;
+}
+
 .stat-card {
   display: flex;
   flex-direction: column;

@@ -3,29 +3,37 @@ import SideBar from "./SideBar"
 import Header from "./Header"
 import { getExpenses } from "../services/expenseService"
 import { getCategories } from "../services/categoriesService"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 function Layout() {
   const [expenses, setExpenses] = useState([])
   const [categories, setCategories] = useState([])
+  const [expenseFilters, setExpenseFilters] = useState({})
+  const expenseRequest = useRef({ filters: {} })
 
-  useEffect(() => {
+  const fetchData = useCallback(async (filters = expenseRequest.current.filters) => {
+    const request = { filters }
+    expenseRequest.current = request
+    const data = await getExpenses(filters)
 
-
-    fetchData();
-  }, []);
-  async function fetchData(filters = {}) {
-    const data = await getExpenses(filters);
-    setExpenses(data);
-  }
-  useEffect(() => {
-
-    fetchCategories()
+    if (expenseRequest.current === request && data) {
+      setExpenses(data)
+    }
   }, [])
-  async function fetchCategories() {
+
+  function filterExpenses(filters) {
+    setExpenseFilters(filters)
+    fetchData(filters)
+  }
+
+  const fetchCategories = useCallback(async () => {
     const data = await getCategories()
     setCategories(data)
-  }
+  }, [])
 
+  useEffect(() => {
+    fetchData()
+    fetchCategories()
+  }, [fetchData, fetchCategories])
 
   return (
     <div className="app-shell">
@@ -33,7 +41,7 @@ function Layout() {
       <div className="main-area">
         <Header />
         <main className="page-content">
-          <Outlet context={{ expenses, setExpenses, fetchData,categories,setCategories,fetchCategories }} />
+          <Outlet context={{ expenses, setExpenses, fetchData, expenseFilters, filterExpenses, categories, setCategories, fetchCategories }} />
         </main>
       </div>
     </div>
