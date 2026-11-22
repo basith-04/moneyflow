@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS expenses (
     expense_id SERIAL PRIMARY KEY,
     title VARCHAR(160) NOT NULL,
     amount NUMERIC(12, 2) NOT NULL CHECK (amount >= 0),
+    payment_mode VARCHAR(40) ,
     date DATE NOT NULL,
     category_id INTEGER NOT NULL,
     group_id INTEGER,
