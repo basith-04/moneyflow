@@ -37,7 +37,7 @@ async function getExpenses(req, res) {
             query += ` AND date <= $${values.length}`;
         }
 
-        query += ' ORDER BY expense_id DESC'
+        query += ' ORDER BY E.date DESC, E.expense_id DESC'
         const { rows } = await pool.query(query, values)
         return res.status(200).json(rows)
 

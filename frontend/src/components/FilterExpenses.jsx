@@ -18,6 +18,16 @@ export default function FilterExpenses(props) {
         props.onFilter({ min: minAmount, max: maxAmount, from: startDate, to: endDate, category_id: category, payment_mode: modeOfPayment });
     }
 
+    function handleClear() {
+        setMinAmount("");
+        setMaxAmount("");
+        setStartDate("");
+        setEndDate("");
+        setCategory("");
+        setModeOfPayment("");
+        props.onFilter({});
+    }
+
     return <div className="filter-container">
     <h1 className="filter-title">Filter Expenses</h1>
     <form onSubmit={handleSubmit} className="filter-form">
@@ -75,6 +85,7 @@ export default function FilterExpenses(props) {
         </select>
         
         <button type="submit" className="filter-btn">Apply Filters</button>
+        <button type="button" className="filter-btn filter-clear-btn" onClick={handleClear}>Clear</button>
     </form>
 </div>
 }

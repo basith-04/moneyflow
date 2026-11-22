@@ -434,6 +434,15 @@ textarea {
     background-color: #d64242;
 }
 
+.filter-clear-btn {
+    background-color: #e2e8f0;
+    color: #334155;
+}
+
+.filter-clear-btn:hover {
+    background-color: #cbd5e1;
+}
+
 /* Container and Heading */
 .add-expense-container {
     margin-bottom: 24px;
