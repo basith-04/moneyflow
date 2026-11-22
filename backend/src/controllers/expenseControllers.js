@@ -1,6 +1,6 @@
 import pool from '../db/db.js'
 async function getExpenses(req, res) {
-    let query = " select expense_id,title,amount::float as amount ,to_char(date, 'YYYY-MM-DD') as date,name,category_id,note from expenses E inner join categories C on C.id = E.category_id where E.user_id=$1"
+    let query = " select expense_id,title,amount::float as amount ,to_char(date, 'YYYY-MM-DD') as date,name,category_id,note,E.payment_mode from expenses E inner join categories C on C.id = E.category_id where E.user_id=$1"
     const values = []
     const user_id = req.user.userId
     values.push(user_id)
@@ -21,6 +21,12 @@ async function getExpenses(req, res) {
             values.push(req.query.category_id);
             query += ` AND category_id = $${values.length}`;
         }
+
+        if (req.query.payment_mode) {
+            values.push(req.query.payment_mode);
+            query += ` AND E.payment_mode = $${values.length}`;
+        }
+
         if (req.query.from) {
             values.push(req.query.from);
             query += ` AND date >= $${values.length}`;
@@ -42,7 +48,7 @@ async function getExpenses(req, res) {
 }
 async function addExpense(req, res) {
     console.log(req.body)
-    const { title, amount, date, category_id, group_id, note } = req.body
+    const { title, amount, date, category_id, group_id, note,payment_mode } = req.body
     const user_id = req.user.userId
     if (!title || !amount || !date || !category_id) {
         return res.status(400).json({ error: "missing required fields" })
@@ -50,10 +56,10 @@ async function addExpense(req, res) {
     try {
         const result = await pool.query(
             `INSERT INTO expenses 
-       (title, amount, date, category_id, group_id, note, user_id)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
+       (title, amount, date, category_id, group_id, note, user_id,payment_mode)
+       VALUES ($1, $2, $3, $4, $5, $6, $7,$8)
        RETURNING expense_id`,
-            [title, amount, date, category_id, group_id || null, note || null, user_id]
+            [title, amount, date, category_id, group_id || null, note || null, user_id,payment_mode]
         );
         res.status(201).json({ message: "Expense added", expense_id: result.rows[0].expense_id })
 

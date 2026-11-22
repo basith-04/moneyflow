@@ -1,6 +1,5 @@
 import { updateExpense } from "../services/expenseService"
-import { useState,useEffect } from "react"
-import { getCategories } from "../services/categoriesService";
+import { useState } from "react"
 export default function EditExpenseModal(props) {
     const [title, setTitle] = useState(props.updatedExpense.title)
     const [amount, setAmount] = useState(props.updatedExpense.amount)
@@ -20,7 +19,8 @@ export default function EditExpenseModal(props) {
             note,
         }
         props.onClose()
-        await updateExpense(props.updatedExpense.expense_id, updatedExpense)
+        const result = await updateExpense(props.updatedExpense.expense_id, updatedExpense)
+        if (result) props.onEdit()
 
     }
     return <div className="modal-overlay" onClick={props.onClose}>
