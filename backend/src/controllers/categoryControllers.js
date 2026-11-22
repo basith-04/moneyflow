@@ -2,8 +2,9 @@ import pool from '../db/db.js'
 
 async function getCategories(req,res){
     const user_id = req.user.userId
+    const table = req.query.type === 'income' ? 'income_categories' : 'categories'
     try{
-    const { rows }=await pool.query('select * from categories where user_id = $1 order by id', [user_id])
+    const { rows }=await pool.query(`select * from ${table} where user_id = $1 order by id`, [user_id])
     res.status(200).json(rows)
      }catch(err){
         console.error('DB ERROR',err)
@@ -14,9 +15,10 @@ async function addCategory(req, res) {
 
     const {name} = req.body
     const user_id = req.user.userId
+    const table = req.query.type === 'income' ? 'income_categories' : 'categories'
     try{
     const result = await pool.query(
-        `INSERT INTO categories 
+        `INSERT INTO ${table}
        (name, user_id)
        VALUES ($1, $2)
        RETURNING id`,
@@ -32,12 +34,13 @@ async function addCategory(req, res) {
 async function removeCategory(req,res){
     const {category_id} = req.params
     const user_id = req.user.userId
+    const table = req.query.type === 'income' ? 'income_categories' : 'categories'
     if(!category_id){
         return res.status(400).json({error:"missing required fields"})
     }
     try{
         const result = await pool.query(
-            `DELETE FROM categories WHERE id = $1 AND user_id = $2`,
+            `DELETE FROM ${table} WHERE id = $1 AND user_id = $2`,
             [category_id, user_id]
         );
         if(result.rowCount > 0){

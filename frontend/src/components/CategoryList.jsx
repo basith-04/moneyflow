@@ -18,7 +18,7 @@ export default function CategoryList(props) {
                         <td>{element.id}</td>
                         <td>{element.name}</td>
                         <td><button onClick={async ()=>{
-                            await removeCategory(element.id)
+                            await removeCategory(element.id, props.type)
                             props.onDelete(element.id)
                             
                         }}>x</button></td>

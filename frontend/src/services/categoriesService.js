@@ -1,9 +1,10 @@
 const apiUrl = import.meta.env.VITE_API_URL;
 import { authFetch } from "./api";
-async function getCategories() {
+async function getCategories(type) {
   try {
 
-    const res = await authFetch(`${apiUrl}/category`)
+    const query = type === "income" ? "?type=income" : ""
+    const res = await authFetch(`${apiUrl}/category${query}`)
     if (!res.ok) throw new Error(`Server error: ${res.status}`);
 
     const data = await res.json();
@@ -15,10 +16,10 @@ async function getCategories() {
   }
 
 }
-async function addCategories(catName) {
+async function addCategories(catName, type) {
   try {
-    
-    const res = await authFetch(`${apiUrl}/category`, {
+    const query = type === "income" ? "?type=income" : ""
+    const res = await authFetch(`${apiUrl}/category${query}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(catName)
@@ -30,10 +31,10 @@ async function addCategories(catName) {
   } 
 
 }
-async function removeCategory(id){
+async function removeCategory(id, type){
   try {
-    
-    const res = await authFetch(`${apiUrl}/category/${id}`, {
+    const query = type === "income" ? "?type=income" : ""
+    const res = await authFetch(`${apiUrl}/category/${id}${query}`, {
       method: "DELETE",
     })
     if (!res.ok) throw new Error(`Server error: ${res.status}`);

@@ -7,6 +7,7 @@ import { useState, useEffect, useRef, useCallback } from "react"
 function Layout() {
   const [expenses, setExpenses] = useState([])
   const [categories, setCategories] = useState([])
+  const [incomeCategories, setIncomeCategories] = useState([])
   const [expenseFilters, setExpenseFilters] = useState({})
   const expenseRequest = useRef({ filters: {} })
 
@@ -30,6 +31,11 @@ function Layout() {
     setCategories(data)
   }, [])
 
+  const fetchIncomeCategories = useCallback(async () => {
+    const data = await getCategories('income')
+    if (data) setIncomeCategories(data)
+  }, [])
+
   useEffect(() => {
     fetchData()
     fetchCategories()
@@ -41,7 +47,7 @@ function Layout() {
       <div className="main-area">
         <Header />
         <main className="page-content">
-          <Outlet context={{ expenses, setExpenses, fetchData, expenseFilters, filterExpenses, categories, setCategories, fetchCategories }} />
+          <Outlet context={{ expenses, setExpenses, fetchData, expenseFilters, filterExpenses, categories, setCategories, fetchCategories, incomeCategories, fetchIncomeCategories }} />
         </main>
       </div>
     </div>

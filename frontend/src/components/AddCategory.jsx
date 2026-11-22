@@ -1,6 +1,6 @@
-import {useState,useEffect} from "react"
+import {useState} from "react"
 import { addCategories } from "../services/categoriesService";
-export default function AddCategory({ onAdd }) {
+export default function AddCategory({ onAdd, type }) {
     const [name, setName] = useState("");
     
     async function handleSubmit(e) {
@@ -10,7 +10,7 @@ export default function AddCategory({ onAdd }) {
      name    };
 
     console.log("Submitted:", newCategory);
-    await addCategories(newCategory)
+    await addCategories(newCategory, type)
     onAdd()
 
     // reset form
