@@ -9,6 +9,7 @@ export default function SideBar(props) {
             <ul role="list">
                 <li><NavLink to="/" end>Dashboard</NavLink></li>
                 <li><NavLink to="/expenses">Expenses</NavLink></li>
+                <li><NavLink to="/income">Income</NavLink></li>
                 <li><NavLink to="/categories">Categories</NavLink></li>
             </ul>
         </nav>

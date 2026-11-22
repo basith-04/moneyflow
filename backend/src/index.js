@@ -4,6 +4,7 @@ import 'dotenv/config'
 import cors from 'cors';
 import express from 'express'
 import {expenseRouter}  from './routes/expenseRouter.js'
+import { incomeRouter } from './routes/incomeRouter.js'
 import { categoryRouter } from './routes/categoryRouter.js'
 import { authRouter } from './routes/authRouter.js';
 
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 8000;
 app.use(cors());
 app.use(express.json())
 app.use('/expenses',expenseRouter)
+app.use('/income',incomeRouter)
 app.use('/category',categoryRouter)
 app.use('/auth',authRouter)
 app.get('/alive',(req,res)=>{
@@ -22,4 +24,4 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`)
 }).on('error', (err) => {
   console.error('Failed to start server:', err)
-}) 
+})

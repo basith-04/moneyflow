@@ -46,3 +46,22 @@ CREATE TABLE IF NOT EXISTS income_categories (
     UNIQUE (user_id, name),
     UNIQUE (id, user_id)
 );
+
+CREATE TABLE IF NOT EXISTS income (
+    income_id SERIAL PRIMARY KEY,
+    amount NUMERIC(12, 2) NOT NULL CHECK (amount >= 0),
+    date DATE NOT NULL,
+    category_id INTEGER NOT NULL,
+    credited_to VARCHAR(40) NOT NULL CHECK (credited_to IN ('Bank Account', 'Cash')),
+    note TEXT,
+    user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    FOREIGN KEY (category_id, user_id)
+        REFERENCES income_categories(id, user_id)
+        ON DELETE RESTRICT
+);
+
+CREATE INDEX IF NOT EXISTS idx_income_user_id ON income(user_id);
+CREATE INDEX IF NOT EXISTS idx_income_category_id ON income(category_id);
+CREATE INDEX IF NOT EXISTS idx_income_date ON income(date);
