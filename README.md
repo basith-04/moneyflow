@@ -1,6 +1,12 @@
 #  MoneyFlow (Kharcha)
 
-A personal expense tracker built to actually understand the stack — no Firebase shortcuts, no boilerplate — just raw SQL, a clean REST API, and a React dashboard that does what you need it to.
+A personal finance tracker for income and expenses, with a React web client and a native macOS app backed by the same Express API and PostgreSQL database.
+
+## MoneyFlow for macOS
+
+The first Mac release is tagged `macos-v1.0.0`. It requires macOS 26 or later. Sign in with your existing MoneyFlow account to access the same transactions and categories you use on the web.
+
+The Mac app includes a cash flow dashboard, searchable and sortable income and expense ledgers, category management, and Keychain-backed sign-in. Build it from source with Xcode 26 or later. [Build instructions and release notes](macapp/README.md)
 
 ---
 
@@ -14,11 +20,11 @@ It's a real working app. It's also how I learned backend fundamentals that actua
 
 ##  Features
 
--  Add, edit, and delete expenses
--  Organize by categories
+-  Add, edit, and delete income and expenses
+-  Manage separate income and expense categories
 -  Dashboard with spending stats and visual summaries
--  Filter expenses by date range, category, and amount
--  JWT-based authentication (in progress)
+-  Filter expenses by date range, category, amount, and payment method
+-  JWT-based authentication and protected routes
 -  Responsive UI
 
 ---
@@ -27,11 +33,11 @@ It's a real working app. It's also how I learned backend fundamentals that actua
 
 | Layer      | Tech                          |
 |------------|-------------------------------|
-| Frontend   | React + Vite                  |
+| Web        | React + Vite                  |
+| macOS      | SwiftUI + Swift Charts        |
 | Backend    | Node.js + Express             |
 | Database   | PostgreSQL (`pg` — no ORM)    |
 | Auth       | JWT + bcrypt                  |
-| Deployment |                               |
 
 ---
 
@@ -45,9 +51,9 @@ moneyflow/
 │   │   ├── pages/          # Dashboard, Expenses, Categories
 │   │   └── services/       # API call abstractions
 ├── backend/                # Express backend
-│   ├── routes/             # API routes
-│   ├── controllers/        # Route logic
-│   └── db/                 # PostgreSQL connection
+│   ├── src/                # API routes, controllers, and PostgreSQL connection
+│   └── schema.sql          # PostgreSQL schema
+├── macapp/                 # Native SwiftUI app and Xcode project
 └── README.md
 ```
 
@@ -63,7 +69,7 @@ moneyflow/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/moneyflow.git
+git clone https://github.com/basith-04/moneyflow.git
 cd moneyflow
 ```
 
@@ -103,8 +109,9 @@ npm run dev
 ### 3. Set up the frontend
 
 ```bash
-cd frontend
+cd ../frontend
 npm install
+cp .env.example .env
 npm run dev
 ```
 
@@ -116,36 +123,49 @@ Frontend runs at `http://localhost:5173`, backend at `http://localhost:5000`.
 
 ### Expenses
 
-| Method | Endpoint              | Description            |
-|--------|-----------------------|------------------------|
-| GET    | `/api/expenses`       | Get all expenses       |
-| POST   | `/api/expenses`       | Add new expense        |
-| PUT    | `/api/expenses/:id`   | Update an expense      |
-| DELETE | `/api/expenses/:id`   | Delete an expense      |
+| Method | Endpoint        | Description       |
+|--------|-----------------|-------------------|
+| GET    | `/expenses`     | Get expenses      |
+| POST   | `/expenses`     | Add an expense    |
+| PATCH  | `/expenses/:id` | Update an expense |
+| DELETE | `/expenses/:id` | Delete an expense |
+
+### Income
+
+| Method | Endpoint      | Description             |
+|--------|---------------|-------------------------|
+| GET    | `/income`     | Get income records      |
+| POST   | `/income`     | Add an income record    |
+| PATCH  | `/income/:id` | Update an income record |
+| DELETE | `/income/:id` | Delete an income record |
 
 ### Categories
 
-| Method | Endpoint               | Description             |
-|--------|------------------------|-------------------------|
-| GET    | `/api/categories`      | Get all categories      |
-| POST   | `/api/categories`      | Add new category        |
-| DELETE | `/api/categories/:id`  | Delete a category       |
+| Method | Endpoint        | Description       |
+|--------|-----------------|-------------------|
+| GET    | `/category`     | Get categories    |
+| POST   | `/category`     | Add a category    |
+| DELETE | `/category/:id` | Delete a category |
+
+Use `?type=income` on category requests to work with income categories.
 
 ### Auth
 
-| Method | Endpoint          | Description     |
-|--------|-------------------|-----------------|
-| POST   | `/api/auth/register` | Register user |
-| POST   | `/api/auth/login`    | Login + JWT   |
+| Method | Endpoint         | Description     |
+|--------|------------------|-----------------|
+| POST   | `/auth/register` | Register a user |
+| POST   | `/auth/login`    | Get a JWT       |
 
 ---
 
 ## 🗺 Roadmap
 
-- [x] Full CRUD for expenses and categories
+- [x] Add, edit, and delete income and expenses
+- [x] Create and delete categories
 - [x] Dashboard with stat cards
 - [x] Filters by date, category, amount
-- [ ] JWT auth + protected routes
+- [x] JWT auth + protected routes
+- [x] Native macOS app
 - [ ] Deploy to Railway + Vercel
 - [ ] Export expenses as CSV
 - [ ] Monthly spending charts
