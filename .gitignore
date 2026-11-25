@@ -139,4 +139,6 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 start.sh
 
+.DS_Store
+
 .vscode/

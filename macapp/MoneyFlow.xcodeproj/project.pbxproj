@@ -1,0 +1,222 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		000000000000000000000200 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000100 /* APIClient.swift */; };
+		000000000000000000000201 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000101 /* DashboardView.swift */; };
+		000000000000000000000202 /* Editors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000102 /* Editors.swift */; };
+		000000000000000000000203 /* LedgerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000103 /* LedgerView.swift */; };
+		000000000000000000000204 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000104 /* Models.swift */; };
+		000000000000000000000205 /* MoneyFlowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000105 /* MoneyFlowApp.swift */; };
+		000000000000000000000206 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000106 /* SessionStore.swift */; };
+		000000000000000000000207 /* WorkspaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000107 /* WorkspaceView.swift */; };
+		000000000000000000000208 /* MoneyFlow.icns in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000108 /* MoneyFlow.icns */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		000000000000000000000100 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		000000000000000000000101 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		000000000000000000000102 /* Editors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editors.swift; sourceTree = "<group>"; };
+		000000000000000000000103 /* LedgerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerView.swift; sourceTree = "<group>"; };
+		000000000000000000000104 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		000000000000000000000105 /* MoneyFlowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyFlowApp.swift; sourceTree = "<group>"; };
+		000000000000000000000106 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
+		000000000000000000000107 /* WorkspaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceView.swift; sourceTree = "<group>"; };
+		000000000000000000000108 /* MoneyFlow.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MoneyFlow.icns; sourceTree = "<group>"; };
+		000000000000000000000109 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00000000000000000000010A /* MoneyFlow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoneyFlow.entitlements; sourceTree = "<group>"; };
+		000000000000000000000004 /* MoneyFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = MoneyFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		000000000000000000000001 = {
+            isa = PBXGroup;
+            children = (000000000000000000000002 /* MoneyFlow */, 000000000000000000000003 /* Products */,);
+            sourceTree = "<group>";
+        };
+		000000000000000000000002 /* MoneyFlow */ = {
+            isa = PBXGroup;
+            children = (
+                000000000000000000000100 /* APIClient.swift */,
+                000000000000000000000101 /* DashboardView.swift */,
+                000000000000000000000102 /* Editors.swift */,
+                000000000000000000000103 /* LedgerView.swift */,
+                000000000000000000000104 /* Models.swift */,
+                000000000000000000000105 /* MoneyFlowApp.swift */,
+                000000000000000000000106 /* SessionStore.swift */,
+                000000000000000000000107 /* WorkspaceView.swift */,
+                000000000000000000000108 /* MoneyFlow.icns */,
+                000000000000000000000109 /* Info.plist */,
+                00000000000000000000010A /* MoneyFlow.entitlements */,
+            );
+            path = MoneyFlow;
+            sourceTree = "<group>";
+        };
+		000000000000000000000003 /* Products */ = {
+            isa = PBXGroup;
+            children = (000000000000000000000004 /* MoneyFlow.app */,);
+            name = Products;
+            sourceTree = "<group>";
+        };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		000000000000000000000005 /* MoneyFlow */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = 00000000000000000000000B /* Build configuration list for PBXNativeTarget MoneyFlow */;
+            buildPhases = (000000000000000000000007 /* Sources */, 000000000000000000000008 /* Frameworks */, 000000000000000000000009 /* Resources */,);
+            buildRules = ();
+            dependencies = ();
+            name = MoneyFlow;
+            productName = MoneyFlow;
+            productReference = 000000000000000000000004 /* MoneyFlow.app */;
+            productType = "com.apple.product-type.application";
+        };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		000000000000000000000006 /* Project object */ = {
+            isa = PBXProject;
+            attributes = {
+                BuildIndependentTargetsInParallel = YES;
+                LastSwiftUpdateCheck = 2600;
+                LastUpgradeCheck = 2600;
+                TargetAttributes = { 000000000000000000000005 = { CreatedOnToolsVersion = 26.0; }; };
+            };
+            buildConfigurationList = 00000000000000000000000A /* Build configuration list for PBXProject MoneyFlow */;
+            compatibilityVersion = "Xcode 14.0";
+            developmentRegion = en;
+            hasScannedForEncodings = 0;
+            knownRegions = (en, Base,);
+            mainGroup = 000000000000000000000001;
+            productRefGroup = 000000000000000000000003 /* Products */;
+            projectDirPath = "";
+            projectRoot = "";
+            targets = (000000000000000000000005 /* MoneyFlow */,);
+        };
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		000000000000000000000007 /* Sources */ = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                000000000000000000000200 /* APIClient.swift in Sources */,
+                000000000000000000000201 /* DashboardView.swift in Sources */,
+                000000000000000000000202 /* Editors.swift in Sources */,
+                000000000000000000000203 /* LedgerView.swift in Sources */,
+                000000000000000000000204 /* Models.swift in Sources */,
+                000000000000000000000205 /* MoneyFlowApp.swift in Sources */,
+                000000000000000000000206 /* SessionStore.swift in Sources */,
+                000000000000000000000207 /* WorkspaceView.swift in Sources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		000000000000000000000008 /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXResourcesBuildPhase section */
+		000000000000000000000009 /* Resources */ = {
+            isa = PBXResourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                000000000000000000000208 /* MoneyFlow.icns in Resources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		00000000000000000000000C /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CLANG_ENABLE_MODULES = YES;
+                MACOSX_DEPLOYMENT_TARGET = 26.0;
+                SDKROOT = macosx;
+                SWIFT_VERSION = 6.0;
+                DEBUG_INFORMATION_FORMAT = dwarf;
+                ONLY_ACTIVE_ARCH = YES;
+                SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+                SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+            };
+            name = Debug;
+        };
+		00000000000000000000000D /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CLANG_ENABLE_MODULES = YES;
+                MACOSX_DEPLOYMENT_TARGET = 26.0;
+                SDKROOT = macosx;
+                SWIFT_VERSION = 6.0;
+                DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+                SWIFT_COMPILATION_MODE = wholemodule;
+            };
+            name = Release;
+        };
+		00000000000000000000000E /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CODE_SIGN_ENTITLEMENTS = MoneyFlow/MoneyFlow.entitlements;
+                CODE_SIGN_IDENTITY = "-";
+                CODE_SIGN_STYLE = Manual;
+                CURRENT_PROJECT_VERSION = 1;
+                ENABLE_HARDENED_RUNTIME = YES;
+                GENERATE_INFOPLIST_FILE = NO;
+                INFOPLIST_FILE = MoneyFlow/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+                MARKETING_VERSION = 1.0.0;
+                PRODUCT_BUNDLE_IDENTIFIER = com.moneyflow.mac;
+                PRODUCT_NAME = MoneyFlow;
+            };
+            name = Debug;
+        };
+		00000000000000000000000F /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CODE_SIGN_ENTITLEMENTS = MoneyFlow/MoneyFlow.entitlements;
+                CODE_SIGN_IDENTITY = "-";
+                CODE_SIGN_STYLE = Manual;
+                CURRENT_PROJECT_VERSION = 1;
+                ENABLE_HARDENED_RUNTIME = YES;
+                GENERATE_INFOPLIST_FILE = NO;
+                INFOPLIST_FILE = MoneyFlow/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+                MARKETING_VERSION = 1.0.0;
+                PRODUCT_BUNDLE_IDENTIFIER = com.moneyflow.mac;
+                PRODUCT_NAME = MoneyFlow;
+            };
+            name = Release;
+        };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00000000000000000000000A /* Build configuration list for PBXProject MoneyFlow */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (00000000000000000000000C /* Debug */, 00000000000000000000000D /* Release */,);
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+		00000000000000000000000B /* Build configuration list for PBXNativeTarget MoneyFlow */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (00000000000000000000000E /* Debug */, 00000000000000000000000F /* Release */,);
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+/* End XCConfigurationList section */
+	};
+	rootObject = 000000000000000000000006 /* Project object */;
+}
