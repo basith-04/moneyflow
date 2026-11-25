@@ -1,0 +1,8 @@
+<resources>
+    <color name="splash_background">#111713</color>
+    <style name="Theme.MoneyFlow" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/splash_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>

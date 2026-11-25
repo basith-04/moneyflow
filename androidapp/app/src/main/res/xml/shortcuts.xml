@@ -1,0 +1,12 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="new_expense"
+        android:enabled="true"
+        android:icon="@drawable/ic_moneyflow_badge"
+        android:shortcutShortLabel="@string/shortcut_add_expense">
+        <intent
+            android:action="com.moneyflow.android.ADD_EXPENSE"
+            android:targetPackage="com.moneyflow.android"
+            android:targetClass="com.moneyflow.android.MainActivity" />
+    </shortcut>
+</shortcuts>
